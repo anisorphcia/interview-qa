@@ -10,6 +10,7 @@ function defineReactive(obj, key, val) {
         enumerable: true,
         configurable: true,
         get: function reavtiveGetter() {
+            console.log('add dep')
             dep.addSubs(Dep.target)
             return val
         },
@@ -68,3 +69,5 @@ class Vue {
         console.log('render :', this._data)
     }
 }
+
+// https://juejin.cn/post/6844903882208837640?searchId=2024060514263743744290161AD07BB279
