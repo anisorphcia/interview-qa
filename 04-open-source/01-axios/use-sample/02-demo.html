@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.7.2/axios.js"></script>
+  </head>
+  <body>
+    <div>
+      <button>get</button>
+      <button>post</button>
+      <button>put</button>
+      <button>delete</button>
+    </div>
+    <script>
+      const btns = document.querySelectorAll("button");
+
+      let baseUrl = "http://localhost:3000";
+      // get
+      btns[0].onclick = function () {
+        axios
+          .request({
+            method: "GET",
+            url: baseUrl + "/comments",
+          })
+          .then((res) => {
+            console.log(res);
+          });
+      };
+
+      // post
+      btns[1].onclick = function () {
+        axios.post(baseUrl + "/comments", {
+          body: "just a body",
+          postId: "2",
+        }).then(res => {
+            console.log(res)
+        });
+      };
+
+      const duanzi = axios.create({
+        baseURL: 'https://api.apiopen.top/api',
+        timeout: 2000
+      })
+      duanzi({
+        url: '/sentences'
+      }).then(res => {
+        console.log(res)
+      })
+
+      duanzi.get('/sentences').then(res => {
+        console.log(res.data)
+      })
+    </script>
+  </body>
+</html>

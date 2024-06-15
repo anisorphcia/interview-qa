@@ -1,0 +1,44 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    },
+    {
+      "title": "nothing more",
+      "author": "hitorikurasi",
+      "id": "7fd7"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "db9e",
+      "body": "just a body",
+      "postId": "2"
+    },
+    {
+      "id": "0d9f",
+      "body": "just a body",
+      "postId": "2"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

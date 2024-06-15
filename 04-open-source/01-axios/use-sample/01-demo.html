@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.7.2/axios.js"></script>
+  </head>
+  <body>
+    <div>
+      <button>get</button>
+      <button>post</button>
+      <button>put</button>
+      <button>delete</button>
+    </div>
+    <script>
+      const btns = document.querySelectorAll("button");
+      btns[0].onclick = function () {
+        axios({
+          method: "GET",
+          url: "http://localhost:3000/posts/2",
+        }).then((res) => {
+          console.log(res);
+        });
+      };
+
+      // add
+      btns[1].onclick = function () {
+        axios({
+          method: "POST",
+          url: "http://localhost:3000/posts",
+          data: {
+            title: "nothing",
+            author: "asakao",
+          },
+        }).then((res) => {
+          console.log(res);
+        });
+      };
+
+      // update
+      btns[2].onclick = function () {
+        axios({
+          method: "PUT",
+          url: "http://localhost:3000/posts/7fd7",  // 传 id 
+          data: {
+            title: "nothing more",
+            author: "hitorikurasi",
+          },
+        }).then((res) => {
+          console.log(res);
+        });
+      };
+
+      // delete
+      btns[3].onclick = function () {
+        axios({
+          method: "delete",
+          url: "http://localhost:3000/posts/c17c",  // 传 id 
+        }).then((res) => {
+          console.log(res);
+        });
+      };
+    </script>
+  </body>
+</html>
