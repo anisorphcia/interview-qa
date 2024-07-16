@@ -1,0 +1,20 @@
+<script>
+    Function.prototype.myBind = function(ctx, ... args){
+        const self = this
+        const fn = function(){}
+        const bind = function(){
+            const _this = this instanceof fn ? this : ctx
+            return self.apply(_this, [...args, ...arguments])
+        }
+        fn.prototype = this.prototype
+        bind.prototype = new fn()
+        return bind
+    }
+    let obj = {
+        name: 'asakao'
+    }
+    function foo(){
+        return this.name
+    }
+    console.log(foo.myBind(obj)())
+</script>

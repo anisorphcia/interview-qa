@@ -1,0 +1,24 @@
+<div>
+
+</div>
+
+<script>
+    Function.prototype.myCall = function(ctx, ...args){
+        console.log('ctx', ctx)
+        ctx = ctx || window
+        let fn = Symbol()
+        console.log('fn', fn)
+        ctx[fn] = this
+        console.log('ctx[fn]', ctx[fn])
+        let result = ctx[fn](...args)
+        delete ctx[fn]
+        return result
+    }
+    let obj = {
+        name: 'asakao'
+    }
+    function foo(){
+        return this.name
+    }
+    console.log(foo.myCall(obj))
+</script>

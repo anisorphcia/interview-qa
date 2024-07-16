@@ -1,0 +1,18 @@
+<script>
+    function myInstanceof(left, right){
+        let leftPro = Object.getPrototypeOf(left)
+        let prototype = right.prototype
+        while(true){
+            if(leftPro === null) return false
+            if(prototype === leftPro) return true
+            // 继续往上找
+            leftPro = Object.getPrototypeOf(leftPro)
+        }
+    }
+    function animal(name){
+        this.name = name
+    }
+    let cat = new animal('mimi')
+    console.log(myInstanceof(cat, Object))
+    console.log(myInstanceof(animal, Array))
+</script>
