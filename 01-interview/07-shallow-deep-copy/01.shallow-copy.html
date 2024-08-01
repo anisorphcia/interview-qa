@@ -1,0 +1,21 @@
+<script>
+    function shallowCopy(obj) {
+        if (typeof obj !== 'object' || obj === null) return obj
+
+        const copy = Array.isArray(obj) ? [] : {}
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                copy[key] = obj[key]
+            }
+        }
+        return copy
+    }
+
+    const obj = { a: 1, b: { c: 2 } }
+    const shallowObj = Object.assign({}, obj)
+
+    const copyObj = shallowCopy(obj)
+    obj.b.c = 3
+    console.log(shallowObj.b.c)
+    console.log(copyObj.b.c)
+</script>
