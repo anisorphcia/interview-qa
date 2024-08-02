@@ -1,0 +1,38 @@
+<script>
+  function shallowCopy(obj) {
+    if (typeof obj !== "object" || obj === null) return obj;
+
+    const copy = Array.isArray(obj) ? [] : {};
+    // 遍历原对象的属性并将其复制到新对象中
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        copy[key] = obj[key];
+      }
+    }
+    return copy;
+  }
+
+  let p = {
+    name: "asakap",
+    a: {
+      b: {
+        c: 1,
+      },
+      d: 2,
+    },
+  };
+  let cp = shallowCopy(p);
+  let assignObj = Object.assign({}, p);
+
+  console.log("p", p);
+  console.log("p.a.b.c before", p.a.b.c);
+  console.log("cp.a.b.c before", cp.a.b.c);
+  console.log("assignObj.a.b.c before", assignObj.a.b.c);
+
+  cp.a.b.c = 10;
+  console.log("----- assign cp.a.b.c = 10 -----");
+
+  console.log("p.a.b.c after", p.a.b.c);
+  console.log("cp.a.b.c", cp.a.b.c);
+  console.log("assignObj.a.b.c", assignObj.a.b.c);
+</script>

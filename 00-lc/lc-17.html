@@ -1,0 +1,36 @@
+<script>
+  var letterCombinations = function (digits) {
+    if (!digits.length) return [];
+    console.log(digits)
+    let hash = new Map();
+    hash.set("2", ["a", "b", "c"]);
+    hash.set("3", ["d", "e", "f"]);
+    hash.set("4", ["g", "h", "i"]);
+    hash.set("5", ["j", "k", "l"]);
+    hash.set("6", ["m", "n", "o"]);
+    hash.set("7", ["p", "q", "r", "s"]);
+    hash.set("8", ["t", "u", "v"]);
+    hash.set("9", ["w", "x", "y", "z"]);
+    let datas = (digits + "").split("");
+    let chars = [];
+    datas.forEach((el) => {
+      chars.push(hash.get(el));
+    });
+    console.log('chars', chars)
+    let res = [];
+    var dfs = function (one, index) {
+      console.log("one", one);
+      if (one.length === chars.length) {
+        console.log(one);
+        res.push(one);
+        return;
+      }
+      for (let i = 0; i < chars[index].length; ++i) {
+        dfs(one + chars[index][i], index + 1);
+      }
+    };
+    dfs("", 0);
+    return res;
+  };
+  console.log('res', letterCombinations(234));
+</script>

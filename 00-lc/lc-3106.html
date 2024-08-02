@@ -1,0 +1,21 @@
+<script>
+var getSmallestString = function (s, k) {
+    let aNum = 'a'.charCodeAt(0)
+    let zNum = 'z'.charCodeAt(0)
+    let sArray = s.split('')
+    for (let i = 0; i < s.length; ++i) {
+        let minDis = Math.min(zNum - s[i].charCodeAt(0) + 1, s[i].charCodeAt(0) - aNum)
+        console.log(`i = ${i}, k = ${k}, minDis = ${minDis}`)
+        if (k >= minDis) {
+            sArray[i] = 'a'
+            k -= minDis
+            console.log(`k = ${k}`)
+        } else {
+            sArray[i] = String.fromCharCode(s[i].charCodeAt(0) - k)
+            break
+        }
+    }
+    return sArray.join('')
+};
+  console.log(getSmallestString("zbbz", 3));
+</script>
