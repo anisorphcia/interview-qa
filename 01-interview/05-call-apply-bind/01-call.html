@@ -3,22 +3,33 @@
 </div>
 
 <script>
-    Function.prototype.myCall = function(ctx, ...args){
-        console.log('ctx', ctx)
-        ctx = ctx || window
-        let fn = Symbol()
-        console.log('fn', fn)
-        ctx[fn] = this
-        console.log('ctx[fn]', ctx[fn])
-        let result = ctx[fn](...args)
-        delete ctx[fn]
-        return result
+    Function.prototype.myCall = function (context, ...args) {
+        // 如果 context 为 null 或 undefined，默认设置为全局对象（在严格模式下为 undefined）
+        context = context || globalThis;
+
+        // 创建一个唯一的属性名，防止与 context 上的其他属性冲突
+        const fnSymbol = Symbol('fn');
+
+        // 将当前函数（即被调用的函数）作为 context 的一个方法
+        // 这里的 this 指向调用 myCall 的函数
+        // context 指向的 person
+        context[fnSymbol] = this;
+
+        // 使用指定的 context 和参数调用函数，并获取结果
+        const result = context[fnSymbol](...args);
+
+        // 删除临时绑定的函数
+        delete context[fnSymbol];
+
+        // 返回结果
+        return result;
     }
-    let obj = {
-        name: 'asakao'
+    function greet(greeting, punctuation) {
+        return `${greeting}, ${this.name}${punctuation}`;
     }
-    function foo(){
-        return this.name
-    }
-    console.log(foo.myCall(obj))
+
+    const person = {
+        name: 'Alice'
+    };
+    console.log(greet.myCall(person, 'Hello', '!')); // 'Hello, Alice!'
 </script>
