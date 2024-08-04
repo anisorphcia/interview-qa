@@ -1,22 +1,32 @@
 <script>
-    Function.prototype.myApply = function(ctx){
-        ctx = ctx || window
-        let fn = Symbol()
-        ctx[fn] = this
-        let result
-        if(arguments[1]){
-            result = ctx[fn](...arguments[1])
-        }else{
-            result = ctx[fn]()
-        }
-        delete ctx[fn]
-        return result
+    Function.prototype.myApply = function (context, args) {
+        // 如果 context 为 null 或 undefined，默认设置为全局对象（在严格模式下为 undefined）
+        context = context || globalThis;
+
+        // 创建一个唯一的属性名，防止与 context 上的其他属性冲突
+        const fnSymbol = Symbol('fn');
+
+        // 将当前函数（即被调用的函数）作为 context 的一个方法
+        context[fnSymbol] = this;
+
+        // 使用指定的 context 和参数数组调用函数，并获取结果
+        const result = context[fnSymbol](...(args || []));
+
+        // 删除临时绑定的函数
+        delete context[fnSymbol];
+
+        // 返回结果
+        return result;
+    };
+
+    // 示例
+    function greet(greeting, punctuation) {
+        return `${greeting}, ${this.name}${punctuation}`;
     }
-    let obj = {
-        name: 'asakao'
-    }
-    function foo(){
-        return this.name
-    }
-    console.log(foo.myApply(obj))
+
+    const person = {
+        name: 'Alice'
+    };
+
+    console.log(greet.myApply(person, ['Hello', '!'])); // 输出：'Hello, Alice!'
 </script>

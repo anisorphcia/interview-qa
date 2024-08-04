@@ -1,0 +1,18 @@
+<script>
+    function myCreate(obj) {
+        function fn(){}
+        fn.prototype = obj
+        return new fn()
+    }
+    const person = {
+        isHuman: false,
+        printIntroduction: function () {
+            console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+        }
+    }
+
+    const a = myCreate(person)
+    a.name = 'someone'
+    a.isHuman = true
+    a.printIntroduction()
+</script>

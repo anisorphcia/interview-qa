@@ -1,0 +1,25 @@
+<script>
+    function myNew(constructor, ...args) {
+        // 1. 创建一个新的空对象
+        let obj = {};
+        // 2. 将新对象的原型链接到构造函数的原型
+        Object.setPrototypeOf(obj, constructor.prototype);
+        // obj = Object.create(constructor.prototype)
+
+        // 3. 将这个新的对象作为 `this` 上下文来执行构造函数
+        const result = constructor.apply(obj, args);
+
+        // 4. 如果构造函数返回的是一个对象类型的值，则返回这个值；否则，返回新创建的对象
+        return result !== null && (typeof result === 'object' || typeof result === 'function') ? result : obj;
+    }
+    // 示例
+    function Person(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    const alice = myNew(Person, 'Alice', 30);
+    console.log(alice.name); // 输出：'Alice'
+    console.log(alice.age);  // 输出：30
+    console.log(alice instanceof Person); // 输出：true
+</script>
