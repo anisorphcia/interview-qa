@@ -1,0 +1,49 @@
+<script>
+  var capitalizeTitle = function (title) {
+    let a = "a".charCodeAt(0);
+    let z = "z".charCodeAt(0);
+    let A = "A".charCodeAt(0);
+    let Z = "Z".charCodeAt(0);
+    console.log('A', A, 'Z', Z)
+    let words = title.split(" ");
+    console.log('words', words)
+    let res = [];
+    for (let word of words) {
+      if (word.length <= 2) {
+        let tmp = "";
+        for (let c of word) {
+          let index = c.charCodeAt(0);
+          if (index >= A && index <= Z) {
+            tmp += String.fromCharCode(index + 32);
+          } else {
+            tmp += c;
+          }
+        }
+        res.push(tmp);
+      } else {
+        let first = word[0].charCodeAt(0);
+        console.log('first', first)
+        let tmp = "";
+        if (first >= A && first <= Z) {
+          tmp += word[0];
+        } else {
+          tmp += String.fromCharCode(first - 32);
+        }
+        for (let i = 1; i < word.length; ++i) {
+          let c = word[i].charCodeAt(0);
+          console.log(`i = ${i}, word[i] = ${word[i]}, c = ${c}`)
+          if (c >= A && c <= Z) {
+            tmp += String.fromCharCode(c + 32);
+          } else {
+            tmp += word[i];
+          }
+        }
+        res.push(tmp);
+      }
+    }
+    return res.join(" ");
+  };
+//   let str = 'capiTalIze tHe titLe'
+  let str = 'capiTalIze'
+  console.log(capitalizeTitle(str))
+</script>

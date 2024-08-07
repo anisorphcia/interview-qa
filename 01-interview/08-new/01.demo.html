@@ -1,0 +1,10 @@
+<script>
+    function myNew(fn, ...args){
+        if(typeof fn !== 'function'){
+            return console.log('type error')
+        }
+        const obj = Object.create(fn.prototype)
+        const value = fn.apply(obj, args)
+        return value instanceof Object ? value : obj
+    }
+</script>

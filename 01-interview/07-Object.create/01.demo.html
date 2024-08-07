@@ -1,0 +1,11 @@
+<script>
+    function create(obj){
+        function F(){}
+        F.prototype = obj
+        return new F()
+    }
+
+    let obj = {a:1}
+    console.log(obj)
+    console.log(create(obj))
+</script>

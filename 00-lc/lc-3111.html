@@ -1,0 +1,25 @@
+<script>
+  var minRectanglesToCoverPoints = function (points, w) {
+    points.sort((a, b) => a[0] - b[0]);
+    let cnt = 1;
+    let start = points[0][0];
+    for (let i = 0; i < points.length; ++i) {
+      if (points[i][0] - start <= w) {
+        continue;
+      } else {
+        start = points[i][0];
+        cnt++;
+      }
+    }
+    return cnt;
+  };
+  let arr = [
+    [2, 1],
+    [1, 0],
+    [1, 4],
+    [1, 8],
+    [3, 5],
+    [4, 6],
+  ];
+  console.log(minRectanglesToCoverPoints(arr, 1));
+</script>

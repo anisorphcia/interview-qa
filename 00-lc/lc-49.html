@@ -1,0 +1,25 @@
+<script>
+  var groupAnagrams = function (strs) {
+    let hash = new Map();
+    let res = [];
+    for (let s of strs) {
+      let arr = s.split("");
+      let sortArr = arr.sort();
+      let tmp = sortArr.toString();
+      console.log("tmp", tmp);
+      if (hash.has(tmp)) {
+        let arr = hash.get(tmp);
+        arr.push(s);
+        hash.set(tmp, arr);
+      } else {
+        hash.set(tmp, [s]);
+      }
+    }
+    for (let [key, value] of hash) {
+      res.push(value);
+    }
+    return res;
+  };
+  let strs = ["eat", "tea", "tan", "ate", "nat", "bat"];
+  console.log(groupAnagrams(strs));
+</script>
