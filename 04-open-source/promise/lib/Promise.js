@@ -158,5 +158,26 @@
     });
   };
 
+  // 在指定的事件后才开始运行
+  Promise.resolveDelay = function (value, time) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (value instanceof Promise) {
+          value.then(resolve, reject);
+        } else {
+          resolve(value);
+        }
+      }, time);
+    });
+  };
+
+  Promise.rejectDelay = function (reason, time) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject(reason);
+      }, time);
+    });
+  };
+
   window.Promise = Promise;
 })(window);
