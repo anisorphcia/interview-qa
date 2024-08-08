@@ -33,7 +33,7 @@
       if (self.callbacks.length) {
         setTimeout(() => {
           self.callbacks.forEach((callback) => {
-            callback.onRejected(value);
+            callback.onRejected(reason);
           });
         });
       }
@@ -54,9 +54,14 @@
    * return promise object
    */
   Promise.prototype.then = function (onResolved, onRejected) {
-
-    onRejected = typeof onResolved === 'function' ? onResolved : value => value
-    onRejected = typeof onRejected === 'function' ? onRejected : reason => {throw reason}
+    onResolved =
+      typeof onResolved === "function" ? onResolved : (value) => value;
+    onRejected =
+      typeof onRejected === "function"
+        ? onRejected
+        : (reason) => {
+            throw reason;
+          };
 
     const self = this;
 
@@ -97,16 +102,60 @@
   };
 
   Promise.prototype.catch = function (onRejected) {
-    return this.then(undefined, onRejected)
+    return this.then(undefined, onRejected);
   };
 
-  Promise.resolve = function (value) {};
+  Promise.resolve = function (value) {
+    return new Promise((resolve, reject) => {
+      if (value instanceof Promise) {
+        value.then(resolve, reject);
+      } else {
+        resolve(value);
+      }
+    });
+  };
 
-  Promise.reject = function (value) {};
+  Promise.reject = function (reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason);
+    });
+  };
 
-  Promise.all = function (promises) {};
+  Promise.all = function (promises) {
+    return new Promise((resolve, reject) => {
+      let values = new Array(promises.length);
+      let cnt = 0;
+      promises.forEach((p, index) => {
+        p.then(
+          (value) => {
+            cnt++;
+            values[index] = value;
+            if (cnt === promises.length) {
+              resolve(values);
+            }
+          },
+          (reason) => {
+            reject(reason);
+          }
+        );
+      });
+    });
+  };
 
-  Promise.race = function (promises) {};
+  Promise.race = function (promises) {
+    return new Promise((resolve, reject) => {
+      promises.forEach((p, index) => {
+        p.then(
+          (value) => {
+            resolve(value);
+          },
+          (reason) => {
+            reject(reason);
+          }
+        );
+      });
+    });
+  };
 
   window.Promise = Promise;
-})();
+})(window);
