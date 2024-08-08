@@ -126,7 +126,8 @@
       let values = new Array(promises.length);
       let cnt = 0;
       promises.forEach((p, index) => {
-        p.then(
+        // Promise.resolve(p) 用来防止数组中出现非 promise 对象
+        Promise.resolve(p).then(
           (value) => {
             cnt++;
             values[index] = value;
@@ -145,7 +146,7 @@
   Promise.race = function (promises) {
     return new Promise((resolve, reject) => {
       promises.forEach((p, index) => {
-        p.then(
+        Promise.resolve(p).then(
           (value) => {
             resolve(value);
           },
