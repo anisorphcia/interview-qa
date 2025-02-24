@@ -1,0 +1,18 @@
+<script>
+    versions = ['1.12.1', '0.1.1', '2.3.3', '0.302.1', '4.2', '4.3.4.5', '4.3.5', '1.0.1', '1.11.1']
+    var sort = function (list) {
+        return list.sort((a, b) => {
+            let aArr = a.split('.')
+            let bArr = b.split('.')
+            let maxLen = Math.max(aArr.length, bArr.length)
+            for (let i = 0; i < maxLen; ++i) {
+                let tmpA = +aArr[i] || 0
+                let tmpB = +bArr[i] || 0
+                if (tmpA === tmpB) continue
+                return tmpA - tmpB
+            }
+            return 0
+        })
+    }
+    console.log(sort(versions))
+</script>

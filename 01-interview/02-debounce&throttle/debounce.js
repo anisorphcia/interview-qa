@@ -5,6 +5,36 @@
 
 // 最后一次触发之后，过 n 秒再执行函数
 
+
+var debounce1 = function (fn, delay) {
+    let timer
+    return function (...arg) {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn.call(this, ...arg)
+        }, delay)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // version 1.0
 const debounce = (fn, delay) => {
     let timer

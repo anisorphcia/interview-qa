@@ -1,0 +1,18 @@
+<script>
+    var simplifyPath = function (path) {
+        const names = path.split('/')
+        console.log('names', names)
+        let stack = []
+        for (let name of names) {
+            if (name === '..') {
+                stack.pop()
+            } else if (name.length && name !== '.') {
+                stack.push(name)
+            }
+        }
+        return '/' + stack.join('/')
+    };
+    let path = '/root//./user///home/../data'
+    console.log(simplifyPath(path))
+
+</script>

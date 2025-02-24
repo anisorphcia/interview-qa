@@ -1,0 +1,24 @@
+<script>
+    var longestCommonPrefix = function (strs) {
+        if (strs.length === 0) return ''
+        if (strs.length === 1) return strs[0]
+        let first = strs[0]
+        for (let i = first.length; i > 0; --i) {
+            let tmp = first.slice(0, i)
+            console.log(`current ${tmp}, i: ${i}`)
+            for (let j = 1; j < strs.length; ++j) {
+                console.log(`j: ${j}`)
+                if (strs[j].indexOf(tmp) === -1 || strs[j].indexOf(tmp) !== 0) {
+                    break
+                }
+                if (strs[j].indexOf(tmp) === 0 && j === strs.length - 1) {
+                    return tmp
+                }
+            }
+        }
+        return ''
+    };
+    strs = ["c", "acc", "ccc"]
+    console.log(strs[1][1])
+    // console.log(longestCommonPrefix(strs))
+</script>

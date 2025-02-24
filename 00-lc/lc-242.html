@@ -1,0 +1,14 @@
+<script>
+    var isAnagram = function (s, t) {
+        let ss = s.split('')
+        let ts = t.split('')
+        var sortChar = function (a, b) {
+            return a.charCodeAt(0) - b.charCodeAt(0)
+        }
+        ss.sort((a, b) => sortChar(a, b))
+        ts.sort((a, b) => sortChar(a, b))
+        console.log(ss, ts)
+        return ss.join('') === ts.join('')
+    };
+    isAnagram('anagram', 'nagaram')
+</script>

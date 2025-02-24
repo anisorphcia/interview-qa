@@ -1,0 +1,80 @@
+<script>
+    // 请给出输出结果
+    function foo() {
+        console.log(this.a);
+    }
+
+    function bar() {
+        var a = 3;
+        console.log(this.a);
+        foo();
+    }
+
+    var a = 2;
+    bar();
+    // 2 2
+    // ----------------------------------------------------------------
+    // 输出顺序
+    var pro = new Promise((res, rej) => {
+        res(1);
+    });
+
+    pro.then(res => {
+        console.log(res);
+    });
+
+    console.log(2);
+
+    pro.then(res => {
+        console.log(res);
+    }).then(res => {
+        console.log(res);
+    })
+    // 2 1 1 undefined
+    // ----------------------------------------------------------------
+    // 用VUE或者React编写一个倒计时组件
+    // 组件接收的参数为秒，展示效果为“剩余：HH:MM:SS”
+    // 100 剩余：00:01:40
+    // 100 剩余：00:01:39
+    // 100 剩余：00:01:38
+    // ...
+
+    // ----------------------------------------------------------------
+    const list = [
+        { key: 1, data: 'A', parentKey: 0 },
+        { key: 2, data: 'B', parentKey: 0 },
+        { key: 3, data: 'C', parentKey: 1 },
+        { key: 4, data: 'D', parentKey: 1 },
+        { key: 5, data: 'E', parentKey: 2 },
+        { key: 6, data: 'F', parentKey: 3 },
+        { key: 7, data: 'G', parentKey: 2 },
+        { key: 8, data: 'H', parentKey: 4 },
+    ];
+    const result = convert(list);
+    let cnt = 0
+    function convert(list) {
+        // your code
+
+    }
+
+// [
+//   {
+//     key: 1,
+//     data: 'A',
+//     parentKey: 0,
+//     children: [
+//       { key: 3, data: 'C', parentKey: 1, children: [{ key: 6, data: 'F', parentKey: 3 }] },
+//       { key: 4, data: 'D', parentKey: 1, children: [{ key: 8, data: 'H', parentKey: 4 }] },
+//     ],
+//   },
+//   {
+//     key: 2,
+//     data: 'B',
+//     parentKey: 0,
+//     children: [
+//       { key: 5, data: 'E', parentKey: 2 },
+//       { key: 7, data: 'G', parentKey: 2 },
+//     ],
+//   },
+// ];
+</script>

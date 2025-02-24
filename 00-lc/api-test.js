@@ -15,10 +15,3 @@ let handler = {
         return Reflect.get(target, property, receiver);
     }
 }
-
-let person = { name: 'asakao' }
-let proxy = new Proxy(person, handler)
-// proxy.name = 'sakamoto'
-// console.log(person.name)
-let derived = Object.create(proxy)
-console.log(derived.name)

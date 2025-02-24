@@ -1,0 +1,18 @@
+<script>
+    var lengthOfLongestSubstring = function (s) {
+        let map = new Map()
+        let res = 0
+        let start = 0
+        for (let i = 0; i < s.length; ++i) {
+            if (map.has(s[i])) {
+                start = map.get(s[i]) + 1
+            }
+            map.set(s[i], i)
+            res = Math.max(res, i - start + 1)
+            console.log(`start = ${start},i = ${i}`)
+            console.log('map', map)
+        }
+        return res
+    };
+    lengthOfLongestSubstring('abba')
+</script>

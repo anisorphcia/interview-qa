@@ -1,0 +1,19 @@
+<script>
+    var findFirst = function (nums, target) {
+        let left = 0, right = nums.length
+        while (left < right) {
+            let mid = Math.floor((left + right) / 2)
+            // first
+            if (target > nums[mid]) {
+                left = mid + 1
+            } else {
+                // 相等的情况，收缩右边界，逼近左边
+                right = mid
+            }
+        }
+        return (left < nums.length && nums[left] === target) ? left : -1
+    }
+    let nums = [1, 2, 2, 2, 2, 3, 3, 4, 5, 6, 7]
+    let target = 2
+    console.log(findFirst(nums, target))
+</script>

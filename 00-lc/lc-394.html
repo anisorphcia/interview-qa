@@ -1,0 +1,30 @@
+<script>
+    var decodeString = function (s) {
+        let res = ''
+        let cnt = []
+        let c = []
+        for (let i = 0; i < s.length; ++i) {
+            let cur = s[i]
+            if (cur === ']' || cur === '[') {
+                let code = c.join('')
+                let times = Number(cnt.join(''))
+                console.log('code', code)
+                console.log('times', times)
+                while (times) {
+                    res = res + code
+                    times--
+                }
+                cnt = []
+                c = []
+                continue
+            } else if (cur.charCodeAt(0) <= 'z'.charCodeAt(0) && cur.charCodeAt(0) >= 'a'.charCodeAt(0)) {
+                c.push(s[i])
+            } else {
+                cnt.push(s[i])
+            }
+        }
+        return res
+    };
+    s = "3[a]2[bc]"
+    console.log('res', decodeString(s))
+</script>

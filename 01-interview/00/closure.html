@@ -1,0 +1,67 @@
+<script>
+    // function outer(cnt) {
+    //     let tmp = 0
+    //     return function () {
+    //         tmp++
+    //         cnt++
+    //         console.log(`tmp: ${tmp}, cnt: ${cnt}`)
+    //     }
+    // }
+    // let fun = outer(1)
+    // fun()
+    // fun()
+    // fun()
+
+
+    // function createCounter() {
+    //     let count = 0;  // 私有变量
+
+    //     function fn() {
+    //         count++;
+    //         console.log(count);
+    //     };
+    //     fn()
+    //     return fn
+    // }
+    // const counter = createCounter();
+    // counter();  // 输出 1
+    // counter();  // 输出 2
+    // const counter1 = createCounter()
+    // counter1()  // 1
+    // counter1()  // 2
+
+
+    // var n = 10
+    // function fn() {
+    //     var n = 20
+    //     function f() {
+    //         n++;
+    //         console.log(n)
+    //     }
+    //     // f()
+    //     return f
+    // }
+
+    // var x = fn()
+    // x()
+    // x()
+    // console.log(n)
+
+    // for (let i = 0; i < 10; i++) {
+    //     setTimeout(function () {
+    //         console.log(i)
+    //     }, 500)
+    // }
+
+    var a = 0
+    function foo() {
+        var b = 14
+        function fo() {
+            console.log(a, b)
+        }
+        fo()
+    }
+    foo()
+
+
+</script>

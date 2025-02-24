@@ -1,0 +1,48 @@
+<script>
+    var wordBreak = function (s, wordDict) {
+        // 将 wordDict 转为 Set，便于查找
+        let wordSet = new Set(wordDict);
+        let dp = new Array(s.length + 1).fill(false);
+        dp[0] = true; // 空字符串可以被拆分
+        let result = new Array(s.length + 1).fill(null); // 用来记录拆分路径
+
+        // 遍历字符串的每一个位置 i
+        for (let i = 1; i <= s.length; i++) {
+            // 对于每一个位置 i，遍历之前的所有位置 j
+            for (let j = 0; j < i; j++) {
+                // 如果 dp[j] 为 true 且 s[j:i] 在字典中，dp[i] 为 true
+                let word = s.slice(j, i);
+                if (dp[j] && wordSet.has(word)) {
+                    dp[i] = true;
+                    if (result[i] === null) {
+                        result[i] = []; // 初始化存储该位置的单词
+                    }
+                    result[i].push(word); // 将找到的单词添加到该位置
+                }
+            }
+        }
+
+        // 如果 dp[s.length] 为 false，说明无法拆分
+        if (!dp[s.length]) return [];
+
+        // 回溯构建拆分出的单词序列
+        let res = [];
+        let buildPath = (i, path) => {
+            if (i === 0) {
+                res.push(path.join(' '));
+                return;
+            }
+            if (result[i] === null) return;
+            for (let word of result[i]) {
+                buildPath(i - word.length, [word, ...path]);
+            }
+        };
+
+        buildPath(s.length, []);
+        return res.length > 0 ? res[0].split(' ') : [];
+    };
+
+    let s = 'catsanddog'
+    let wordDict = ["cats", "dog", "sand", "and", "cat"]
+    console.log(wordBreak(s, wordDict))
+</script>

@@ -1,0 +1,34 @@
+<script>
+    // var pro = new Promise((res, rej) => {
+    //     res(1);
+    // });
+
+    // pro.then(res => {
+    //     console.log(res);
+    // });
+
+    // console.log(2);
+
+    // pro.then(res => {
+    //     console.log(res);
+    // }).then(res => {
+    //     console.log(res);
+    // })
+
+    function foo() {
+        console.log(a); // 2
+        console.log(`this.a: ${this.a}`) // 2
+    }
+
+    function bar() {
+        var a = 3;
+        console.log(a); // 3
+        console.log(`this.a: ${this.a}`) // 2
+        foo();
+    }
+
+    var a = 2;
+    bar();
+    // 3 2
+    console.log('-------')
+</script>

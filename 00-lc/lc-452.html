@@ -1,0 +1,37 @@
+<script>
+    var findMinArrowShots = function (points) {
+        points.sort((a, b) => a[0] - b[0])
+        let start = points[0]
+        let res = []
+        console.log(points)
+        for (let i = 1; i < points.length; ++i) {
+            let [curS, curE] = points[i]
+            if (curS <= start[1]) {
+                start = [curS, Math.min(curE, start[1])]
+            } else {
+                res.push(start)
+                start = points[i]
+            }
+        }
+        return res.length
+    };
+    var findMinArrowShots1 = function (points) {
+        points.sort((a, b) => a[0] - b[0])
+        let preEnd = points[0][1]
+        let res = []
+        let cnt = 1
+        for (let i = 1; i < points.length; ++i) {
+            let [curS, curE] = points[i]
+            if (curS <= preEnd) {
+                // 记录相交区间的结尾
+                preEnd = Math.min(curE, preEnd)
+            } else {
+                cnt++
+                preEnd = curE
+            }
+        }
+        return cnt
+    };
+    let arr = [[10, 16], [2, 8], [1, 6], [7, 12]]
+    findMinArrowShots(arr)
+</script>

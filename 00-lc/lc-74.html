@@ -1,0 +1,30 @@
+<script>
+    var searchMatrix = function (matrix, target) {
+        var binarySearch = function (nums) {
+            let left = 0, right = nums.length - 1
+            while (left <= right) {
+                let mid = Math.floor((left + right) / 2)
+                if (nums[mid] === target) {
+                    return mid
+                } else if (nums[mid] > target) {
+                    right--
+                } else {
+                    left++
+                }
+            }
+            return left
+        }
+        let firstCol = []
+        for (let i = 0; i < matrix.length; ++i) {
+            firstCol.push(matrix[i][0])
+        }
+        let row = binarySearch(firstCol)
+        console.log('row', row)
+        let insertIndex = binarySearch(matrix[row])
+        console.log('col', insertIndex)
+        return matrix[row][insertIndex] === target
+    };
+    let matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]]
+    let target = 13
+    searchMatrix(matrix, target)
+</script>

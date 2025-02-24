@@ -1,0 +1,28 @@
+<script>
+    var findAnagrams = function (s, p) {
+        let sCount = new Array(26).fill(0)
+        let pCount = new Array(26).fill(0)
+        let a = 'a'.charCodeAt(0)
+        let sLength = s.length
+        let pLength = p.length
+        let res = []
+        for (let c of p) {
+            pCount[c.charCodeAt(0) - a]++
+        }
+        console.log(pCount.toString())
+        for (let i = 0; i < sLength; ++i) {
+            sCount[s[i].charCodeAt(0) - a]++
+            if (i >= pLength) {
+                // 去掉 s 最左边的元素
+                sCount[s[i - pLength].charCodeAt(0) - a]--
+            }
+            if (pCount.toString() === sCount.toString()) {
+                res.push(i - pLength + 1)
+            }
+        }
+        return res
+    };
+    let s = 'cbaebabacd'
+    let p = 'abc'
+    console.log(findAnagrams(s, p))
+</script>
