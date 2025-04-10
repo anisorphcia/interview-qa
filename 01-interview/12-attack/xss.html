@@ -1,0 +1,21 @@
+<input type="text" id="comment">
+<button onclick="addComment()">Add comment</button>
+<div id="comments"></div>
+
+<script>
+    function addComment() {
+        // 1 输入 <script> 标签进行注入 alert 攻击
+        // 浏览器转译了 script 标签
+        // 将 < 转译为16进制 &#x3C;
+        // 所以这个例子并不会被注入
+
+        // 2 输入 <img src="x" onerror="alert('XSS')"> 可以成功实现攻击
+        let input = document.getElementById('comment')
+        document.getElementById('comments').innerHTML += `<p>${input.value}</p>`
+
+        // 基于第 1 个例子，可以通过创建 script 标签来实现 script 标签攻击
+        const script = document.createElement('script');
+        script.innerHTML = "alert('create script to attack')";
+        document.body.appendChild(script);
+    }
+</script>

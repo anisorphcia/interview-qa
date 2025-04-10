@@ -1,0 +1,11 @@
+<iframe src="https://www.baidu.com" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+<button onclick="alert('您已成功转账10000元')">免费领取iPhone</button>
+
+<script>
+    // Clickjacking
+    // 点击劫持是一种视觉欺骗的攻击手段，攻击者将需要攻击的网站通过 iframe 嵌套的方式嵌入自己的网页中
+    // 并将 iframe 设置为透明，在页面中透明的图层上覆盖一个诱人点击的按钮，当用户在攻击页面上进行操作时，实际上是在操作透明的 iframe 中的页面。
+    // 可以在 console 的 network 上看到访问了 baidu.com
+    // 防御：X-Frame-Options: DENY
+    // 防御：Content-Security-Policy: frame-ancestors 'none'
+</script>

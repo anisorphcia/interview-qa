@@ -1,0 +1,13 @@
+<img src="https://www.A.com" />
+<script>
+    // CSRF（Cross-Site Request Forgery，跨站请求伪造）
+    // CSRF 攻击是一种利用用户已登录的身份来伪造用户的请求发送恶意请求的攻击方式
+    // 1. 用户在站点 A 登录
+    // 2. 用户在不登出站点 A 的情况下，访问了站点 B
+    // 3. 站点 B 发送了一个请求到站点 A，站点 A 以为是用户自己发送的请求，于是执行了请求
+    // 4. 攻击者就可以在站点 B 上伪造用户的请求，从而实现 CSRF 攻击
+    
+    // 使用 CSRF Token（请求时必须携带正确的 Token 才能生效）。
+    // 使用 SameSite Cookie（限制跨站请求携带 Cookie）。
+    // 使用 Referer / Origin 验证，拒绝来自外部站点的请求。
+</script>

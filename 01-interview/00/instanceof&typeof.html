@@ -1,0 +1,30 @@
+<script>
+    let a = new Number(1)
+    console.log(a instanceof Number);  // true
+    console.log(a.__proto__.constructor === Number) // true
+    console.log(a.__proto__ === Number.prototype) // true
+    console.log('------')
+    let b = 1
+    console.log(b instanceof Number); // false
+    console.log(b.__proto__.constructor === Number) // true
+    console.log(b.__proto__ === Number.prototype) // true
+    console.log('------')
+    console.log(b.__proto__)
+
+    // 示例 1：直接原型匹配
+    // const arr = [];
+    // console.log(arr instanceof Array); // true
+    // console.log(arr.__proto__ === Array.prototype); // true
+    // // 这里两者等效
+
+    // // 示例 2：原型链更上层
+    // function Parent() { }
+    // function Child() { }
+    // Child.prototype = Object.create(Parent.prototype); // Child 继承 Parent
+
+    // const obj = new Child();
+    // console.log(obj instanceof Parent); // true（递归查找原型链）
+    // console.log(obj.__proto__ === Parent.prototype); 
+    // console.log(obj.__proto__)
+    // console.log(Parent.prototype)
+</script>

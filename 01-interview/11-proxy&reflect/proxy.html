@@ -1,0 +1,17 @@
+<script>
+    const obj = {
+        name: 'Vue',
+        getName() {
+            return this.name;
+        }
+    };
+    const proxy = new Proxy(obj, {
+        get(target, key) {
+            return target[key]; // 直接返回
+        }
+    });
+    proxy.a = 'react'
+    console.log(proxy.getName()); // undefined（this 指向 proxy 而不是 obj）
+
+
+</script>

@@ -1,0 +1,63 @@
+<script>
+    const targetMap = new WeakMap()
+    const proxyMap = new WeakMap()
+
+    let activeEffect = null
+
+    function track(target, key) {
+        if (activeEffect) {
+            let depsMap = targetMap.get(target)
+            if (!depsMap) {
+                targetMap.set(target, (depsMap = new Map()))
+            }
+            console.log('targetMap', targetMap)
+            let dep = depsMap.get(key)
+            if (!dep) {
+                depsMap.set(key, (dep = new Set()))
+            }
+            dep.add(activeEffect)
+        }
+    }
+    function trigger(target, key) {
+        const depsMap = targetMap.get(target)
+        if (!depsMap) return
+        const dep = depsMap.get(key)
+        if (dep) {
+            dep.forEach(effect => effect())
+        }
+    }
+    function reactive(target) {
+        if (proxyMap.has(target)) return proxyMap.get(target)
+        const proxy = new Proxy(target, {
+            get(target, key, receiver) {
+                track(target, key)
+                return Reflect.get(target, key, receiver)
+            },
+            set(target, key, value, receiver) {
+                let oldValue = target[key]
+                const result = Reflect.set(target, key, value, receiver)
+                if (oldValue !== value) {
+                    trigger(target, key)
+                }
+                return result
+            }
+        })
+        proxyMap.set(target, proxy)
+        return proxy
+    }
+    function effect(fn) {
+        const effectFn = () => {
+            activeEffect = effectFn
+            fn()
+            activeEffect = null
+        }
+        effectFn()
+    }
+
+    let a = { cnt: 1 }
+    const state = reactive(a)
+    effect(() => { console.log(`cnt: ${state.cnt}`) })
+    // effect(() => { console.log(`name: ${state.name}`) })
+    state.cnt = 2
+    // state.name = 'anything'
+</script>
