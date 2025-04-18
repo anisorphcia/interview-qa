@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3 nextTick 示例</title>
+  <!-- 引入 Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    #app {
+      border: 1px solid #eee;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #42b983;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #33a06f;
+    }
+
+    .console {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+      font-family: monospace;
+      white-space: pre;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2>Vue 3 nextTick 示例</h2>
+    <p>当前计数: {{ count }}</p>
+    <button @click="increment">增加计数</button>
+    <button @click="reset">重置</button>
+
+    <div class="console" id="console-output">
+      控制台输出将显示在这里...
+    </div>
+  </div>
+
+  <script>
+    // 重写 console.log 以在页面上显示输出
+    const originalConsoleLog = console.log;
+    console.log = function (message) {
+      originalConsoleLog.apply(console, arguments);
+      const outputDiv = document.getElementById('console-output');
+      outputDiv.textContent += message + '\n';
+      outputDiv.scrollTop = outputDiv.scrollHeight;
+    };
+
+    // 清除控制台输出的函数
+    function clearConsole() {
+      document.getElementById('console-output').textContent = '控制台输出将显示在这里...\n';
+    }
+
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          count: 0,
+          autoIncrement: false
+        }
+      },
+      methods: {
+        increment() {
+          this.count++;
+          console.log('1. 同步代码');
+          this.$nextTick(() => {
+            console.log('4. nextTick 回调');
+          });
+
+          Promise.resolve().then(() => {
+            console.log('3. Promise 微任务');
+          });
+        },
+        reset() {
+          this.count = 0;
+          clearConsole();
+          console.log('计数器已重置');
+        }
+      },
+      beforeUpdate() {
+        console.log('2. beforeUpdate 钩子');
+      },
+      updated() {
+        console.log('5. updated 钩子');
+      },
+      mounted() {
+        console.log('组件已挂载，1秒后自动增加计数...');
+        setTimeout(() => {
+          this.increment();
+        }, 1000);
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>
